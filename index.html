@@ -10,12 +10,85 @@
 </head>
 <body>
   <div id="app"></div>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Open+Sans&family=Rajdhani:wght@700&display=swap');
+
+    .app-name {
+      padding: 1em;
+    }
+    h1 { font-family: 'Rajdhani', sans-serif; }
+    h2 { font-family: 'Rajdhani', sans-serif; }
+    h3 { font-family: 'Rajdhani', sans-serif; }
+    p { font-family: 'Open Sans', sans-serif; }
+    li { font-family: 'Open Sans', sans-serif; }
+    
+    pre {
+      border-radius: 1em;
+    }
+
+    /* inline code */
+    .markdown-section code {
+      background-color: #eeeeee;
+      border-radius: 4px;
+      color: #FC7A44;
+      font-family: 'JetBrains Mono', Monaco, courier, monospace;
+      font-size: 0.8rem;
+      margin: 8px 2px;
+      padding: 3px 5px;
+      white-space: pre-wrap;
+    }
+    .markdown-section pre>code {
+      background-color: #282828;
+      border-radius: 2px;
+      color: #fafafa;
+      font-family: 'JetBrains Mono', Monaco, courier, monospace;
+      font-size: 0.8rem;
+      margin: 8px 2px;
+      padding: 3px 5px;
+      white-space: pre-wrap;
+    }
+    .markdown-section pre {
+      -moz-osx-font-smoothing: initial;
+      -webkit-font-smoothing: initial;
+      background-color: #282828;
+      font-family: 'JetBrains Mono', Monaco, courier, monospace;
+      line-height: 1.5rem;
+      margin: 1.2em 0;
+      overflow: auto;
+      padding: 0 0.5rem;
+      position: relative;
+      word-wrap: normal;
+    }
+    .token.key.atrule { color: #fcc444; }
+    .token.punctuation { color: #abb1b3; }
+    .token.function { color: #fcc444; }
+    .token.keyword { color: #FC7A44; }
+    .token.string { color: #F54C40; }
+    .docsify-copy-code-button {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.8em;
+      border-radius: 0 0 0 0.8em;
+    }
+  </style>
   <script>
     window.$docsify = {
       name: 'Chest Docs',
       repo: 'github.com/chestdb/chest',
+      loadSidebar: true,
+      loadNavbar: true,
+      subMaxLevel: 2,
+      homepage: 'getting-started.md',
+      themeColor: '#C71E51',
+      logo: 'assets/logo.svg',
+      pagination: {
+        crossChapter: true
+      },
     }
   </script>
   <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://unpkg.com/docsify-copy-code@2"></script>
+  <script src="https://unpkg.com/prismjs/components/prism-dart.min.js"></script>
+  <script src="https://unpkg.com/prismjs/components/prism-yaml.min.js"></script>
 </body>
 </html>
