@@ -1,9 +1,32 @@
 # Tapers
 
-Tapers are used to serialize objects.
+Chest uses its own encoding called *tape*.
 
-They are usually defined as extensions on `TaperNamespace`, a class which has the `taper` instance.
-So, to use tapers, just write `taper.forMyType()`.
+To store an object of some type in a Chest, a *taper* needs to be registered for that type.
+The taper takes care of turning that object into bytes and later converting those bytes back into the object.
+
+## Registering tapers
+
+Each taper is registered under a *type code* (a number).
+Tapers are usually registered at the beginning of the `main` method with a call that looks like this:
+
+```dart
+tape.register({
+  ...tapers.forDartCore,
+  ...tapers.forTuple,
+  ...tapers.forFlutter,
+  0: taper.forUser(),
+  1: taper.forList<User>(),
+  2: legacyTaper.forPet().v1,
+  3: taper.forPet(),
+});
+```
+
+Note that for [for many popular packages](type-codes.md), including `dart:core`, tapers are already available.
+For your own types, use type codes `>= 0`.
+
+?> Tapers are usually defined as extension methods on `TaperNamespace`, a class which has the `taper` instance.
+Those methods typically follow the naming scheme `for<TypeName>`. That makes encoding tapers for types with generics intuitive: `taper.forList<User>()`
 
 <!-- ## Generating tapers automatically
 
@@ -89,7 +112,7 @@ void main() {
 
 ## Publishing tapers for a package
 
-If you use a package and want to make the tapers you write available to everyone, follow these steps:
+If you use a package and want to make the tapers you write available to the community, follow these steps:
 
 1. Create a new package named `<original package>_tapers`.
    For example, if you're writing tapers for types from the `abc` package, name your package `abc_tapers`.
@@ -110,4 +133,4 @@ If you use a package and want to make the tapers you write available to everyone
      }
    }
    ```
-5. Publish your package under the name `<original package>_tapers`
+5. Publish your package.

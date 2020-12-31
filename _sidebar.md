@@ -1,2 +1,6 @@
 * [Getting started](getting-started.md)
+* [Chests](chests.md)
 * [Tapers](tapers.md)
+* [Examples](examples.md)
+* [How does it work?](how-does-it-work.md)
+* [Frequently asked questions](faq.md)
