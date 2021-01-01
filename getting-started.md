@@ -6,10 +6,6 @@ Add these dependencies to your `pubspec.yaml` file:
 dependencies:
   chest: ...
   chest_flutter: ... # if you're using Flutter
-
-dev_dependencies:
-  tapegen: ...
-  build_runner: ...
 ```
 
 For an in-depth introduction to Chest, just read the chapters.

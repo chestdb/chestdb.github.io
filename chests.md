@@ -1,16 +1,29 @@
 # Chests
 
-Each chest is like a persisted variable.
+Databases managed by the Chest framework are called chests.
+But instead of thinking about chests as databases and all the associated stuff like tables, indizes etc, I encourage you to think about them more as *persisted variables*.
+
+## Create a chest
+
+When creating a chest, you need to give it a unique name and a default value that's used if the chest doesn't exist yet.
+
+```dart
+final counter = Chest<int>('counter', ifNew: () => 0);
+```
+
+?> Please don't name your chest variable `chest`. What name would you give it if it was just a normal variable? Use that one.
+If you really need the distinction between the chest and the value, use `chest` as a suffix, e.g. `counterChest`.
+
+?> It's okay to declare your chests globally. Chests come with built-in functionality for listening to changes and it's impossible for multiple users of a chest to get references to the same interior mutable Dart object.
 
 ## Open a chest
 
-When creating a chest, you need to give it a unique name and a default value that's used if the chest doesn't exist yet.
 Before you can use a chest, you need to open it.
 
 ```dart
-final chest = Chest<int>('counter', ifNew: () => 0);
-await chest.open();
+await counter.open();
 ```
+
 
 ## Access the value of a chest
 
@@ -18,28 +31,36 @@ Get the value using the `.value` getter:
 
 ```dart
 print('This program ran ${counter.value} times.');
+var actualFruit = fruit.value;
 ```
 
-You can set the value using the `.value` setter:
+Set the value using the `.value` setter:
 
 ```dart
-chest.value = 2;
-chest.value--;
+counter.value = 2;
+fruit.value = Fruit(...);
 ```
 
 The change is written to disk as soon as possible.
 
-## Access part of a chest
+## References
 
-A chest is also a reference to its value – in the above case, a `Reference<int>`.
-Some `Reference`s have extensions methods.
-For example, references to complex classes usually have extension methods for fields:
+Actually, the `.value` getter and setter are defined on the `Reference` type.
+
+A `Reference` is a wrapper around an object. Similar to a `Future`, it doesn't contain the value directly (because the Dart object doesn't exist yet).
+Instead, it "promises" to you that you can get and set the value synchronously.
+
+Each `Chest` is a `Reference` to its object – for example, the `counter` from above is a `Reference<int>`.
+References to more complex objects usually have extension methods – for example, a `Reference<Fruit>` might have a `.color` getter that returns a `Reference<Color>`.
+
+Using these getters makes the navigation inside the chest feel pretty natural, although the objects don't actually exist in memory:
 
 ```dart
-user.pet.value = Pet('dog');
+fruit.color.value = Colors.red; // No Fruit object gets created.
 ```
 
-Another example is `Reference<bool>`, which has a `.toggle()` extension method:
+Of course, you can define your own extension methods on `Reference`s to make your life easier.
+For example, the `Reference<bool>` has a `.toggle()` method:
 
 ```dart
 settings.darkMode.toggle();

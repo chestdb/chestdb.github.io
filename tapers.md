@@ -26,7 +26,7 @@ Note that for [for many popular packages](type-codes.md), including `dart:core`,
 For your own types, use type codes `>= 0`.
 
 ?> Tapers are usually defined as extension methods on `TaperNamespace`, a class which has the `taper` instance.
-Those methods typically follow the naming scheme `for<TypeName>`. That makes encoding tapers for types with generics intuitive: `taper.forList<User>()`
+Those methods typically follow the naming scheme `for<TypeName>`. That makes creating tapers for types with generics intuitive: `taper.forList<User>()`
 
 <!-- ## Generating tapers automatically
 
@@ -80,7 +80,7 @@ extension TaperForBool on TaperNamespace {
 For serializing an object into a `Map`, add a `mapTaper`:
 
 ```dart
-class TaperForFruit on TaperNamespace {
+extension TaperForFruit on TaperNamespace {
   Taper<Fruit> forFruit() => mapTaper(
     toMap: (Fruit fruit) {
       return {
@@ -112,7 +112,7 @@ void main() {
 
 ## Publishing tapers for a package
 
-If you use a package and want to make the tapers you write available to the community, follow these steps:
+If you want to make tapers you write available to the community, follow these steps:
 
 1. Create a new package named `<original package>_tapers`.
    For example, if you're writing tapers for types from the `abc` package, name your package `abc_tapers`.

@@ -83,11 +83,11 @@ Browser support is planned for the future though.
 ## Where are my chests stored?
 
 Chests are stored in files inside the directory specified by `Chest.rootPath`.
-Usually, that's the same directory from where your program is run.
+Usually, that's the directory from where your program is run.
 
 ## Is Chest type-safe?
 
-Yes, it's completely type-safe.
+Yes, it is.
 You need to register types before though.
 
 ## Can objects contain cycles?
