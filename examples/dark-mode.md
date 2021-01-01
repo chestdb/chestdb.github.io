@@ -1,3 +1,4 @@
+# Dark mode
 
 ```dart
 import 'package:flutter/material.dart';
@@ -15,14 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReferenceBuilder(
       reference: isDark,
-      builder: (context, value) {
+      builder: (context, _) {
         return MaterialApp(
-          themeMode: value ? ThemeMode.dark : ThemeMode.light,
+          themeMode: isDark.value ? ThemeMode.dark : ThemeMode.light,
           darkTheme: ThemeData.dark(),
           home: Scaffold(
             body: Center(
               child: Switch(
-                value: value,
+                value: isDark.value,
                 onChanged: (_) => isDark.toggle(),
               ),
             ),

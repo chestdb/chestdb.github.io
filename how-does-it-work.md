@@ -1,3 +1,5 @@
+# How does it work?
+
 Databases usually store data in files and Chest is no different.
 When you open a chest, the file's raw bytes are loaded into memory without doing any deserialization.
 So, to Dart's garbage collector, the chest's content is just one big object.

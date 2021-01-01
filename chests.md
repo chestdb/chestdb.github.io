@@ -33,7 +33,7 @@ The change is written to disk as soon as possible.
 
 A chest is also a reference to its value – in the above case, a `Reference<int>`.
 Some `Reference`s have extensions methods.
-For example, for references to complex classes usually have extension methods for fields:
+For example, references to complex classes usually have extension methods for fields:
 
 ```dart
 user.pet.value = Pet('dog');
