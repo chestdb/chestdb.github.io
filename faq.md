@@ -24,10 +24,11 @@ These are some of the things planned before 1.0.0 release:
 - [x] Write docs on how to write tapers
 - [x] Document the tape format
 - [x] Document the file format
+- [x] Set up website
+- [x] Write docs on how to get started
 - [ ] Support taper migration
 - [ ] Support transactions
 - [ ] Support storing references
-- [ ] Set up website
 - [ ] Support lazy chests
 - [ ] Make errors more beautiful
   - [ ] Suggest tapers
@@ -42,7 +43,6 @@ These are some of the things planned before 1.0.0 release:
   - [x] dart:typed_data
   - [ ] tuple
   - [ ] Flutter
-- [ ] Write docs on how to get started
 - [ ] Write docs on how to migrate tapers
 - [ ] Write tests
 - [ ] Add CI
