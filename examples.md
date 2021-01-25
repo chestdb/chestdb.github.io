@@ -14,7 +14,7 @@ A program that counts how many times it ran.
 
 <div class="example mdc-card">
 
-<h2>Counter</h2>
+<h2>Tap Counter</h2>
 
 The typical Flutter counter app, but persisted.
 

@@ -15,86 +15,98 @@ tape.register({
   ...tapers.forDartCore,
   ...tapers.forTuple,
   ...tapers.forFlutter,
-  0: taper.forUser(),
+  0: taper.forUser().v1,
   1: taper.forList<User>(),
-  2: legacyTaper.forPet().v1,
-  3: taper.forPet(),
+  2: taper.forPet().v1,
+  3: taper.forPet().v2,
 });
 ```
 
 Note that for [for many popular packages](type-codes.md), including `dart:core`, tapers are already available.
-For your own types, use type codes `>= 0`.
+For your own types, always use type codes `>= 0`.
 
-?> Tapers are usually defined as extension methods on `TaperNamespace`, a class which has the `taper` instance.
-Those methods typically follow the naming scheme `for<TypeName>`. That makes creating tapers for types with generics intuitive: `taper.forList<User>()`
+## Generating tapers automatically
 
-<!-- ## Generating tapers automatically
+!> This is not supported yet, but is definitely planned for the future.
 
-Most of the time, your classes are simple enough that you can generate tapers automatically.
+Most of the time, your classes will be simple enough that tapers can automatically be generated.
 
-Just annotate your class with `@tape` and add a `part` directive:
+You'll be able to just annotate your class with `@tape` and add a `part` directive:
 
 ```dart
 part 'my_file.g.dart';
 
 @tape
-class Fruit {
+class User {
+  User(this.name, this.age);
+
   final String name;
-  final Color color;
+  final int age;
 }
 ```
 
-When you run `dart pub run build_runner build`, Chest will automatically generate a taper and make it available at `taper.forFruit()`.
+If you run `dart pub run build_runner build`, Chest will automatically generate a taper and make it available at `taper.forUser()`.
 
-The generated tapers uses the field names as keys, so if you rename a field, you'll need to migrate to the new taper.
-To counter this, add `TapeKey` annotations to all fields:
+You can specify multiple versions of tapers and define `TapeKey`s. Using these, you'll be able to add, remove, and rename fields:
 
 ```dart
-@tape
-class Fruit {
-  @TapeKey(0) final String name;
-  @TapeKey(1) final Color color;
+@tape({
+  v0: {#name, #pet},
+  v1: {#height, #name, #pet},
+  v2: {#height, #name},
+})
+class User {
+  User(this.firstName, this.height);
+
+  @TapeKey(#name)
+  final String firstName;
+  final int height;
 }
 ```
 
-The keys can be anything, but numbers are pretty small to encode. -->
-
 ## Writing tapers
+
+Tapers are usually defined as extension methods on `TaperNamespace`, a class which has the `taper` instance.
+Those methods typically follow the naming scheme `for<TypeName>`. That makes creating tapers for types with generics intuitive: `taper.forList<User>()`
 
 When writing tapers for a type, you can choose from one of two options:
 
 * serialize objects into bytes
 * serialize objects into maps of serializable objects
 
-For serializing an object into bytes, add a `byteTaper`:
+For serializing an object into bytes, return a `BytesTaper`:
 
 ```dart
 extension TaperForBool on TaperNamespace {
-  Taper<Bool> forBool() => bytesTaper(
-    toBytes: (bool value) => [value ? 1 : 0],
-    fromBytes: (Uint8List bytes) => bytes.single != 0,
-  );
+  Taper<Bool> forBool() {
+    return BytesTaper(
+      toBytes: (bool value) => [value ? 1 : 0],
+      fromBytes: (Uint8List bytes) => bytes.single != 0,
+    );
+  }
 }
 ```
 
-For serializing an object into a `Map`, add a `mapTaper`:
+For serializing an object into a `Map`, return a `MapTaper`:
 
 ```dart
 extension TaperForFruit on TaperNamespace {
-  Taper<Fruit> forFruit() => mapTaper(
-    toMap: (Fruit fruit) {
-      return {
-        'name': fruit.name,
-        'color': fruit.color,
-      };
-    },
-    fromMap: (Map<Object?, Object?> map) {
-      return Fruit(
-        name: map['name'] as String,
-        color: map['color'] as Color,
-      );
-    },
-  );
+  Taper<Fruit> forFruit() {
+    return MapTaper(
+      toMap: (Fruit fruit) {
+        return {
+          'name': fruit.name,
+          'color': fruit.color,
+        };
+      },
+      fromMap: (Map<Object?, Object?> map) {
+        return Fruit(
+          name: map['name'] as String,
+          color: map['color'] as Color,
+        );
+      },
+    );
+  }
 }
 ```
 

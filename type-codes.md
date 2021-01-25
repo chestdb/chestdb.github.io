@@ -12,6 +12,8 @@ Type codes are always allocated in batches of 10 – the x stands for any digit.
 
 type code | tapers package | type package | types
 ---:|---|---|---
- -x | chest | chest     | `Content`, `Version`, `TypeCodes`
--1x | chest | dart:core | `int`, `bool`
--2x | chest | dart:core | 
+ -x | chest | chest           | `Content`, `Version`, `TypeCodes`
+-1x | chest | dart:core       | `Null`, `bool`, `String`, `int`, `double`, `BigInt`, `DateTime`, `Duration`, `List`, `Map`, `Set`
+-2x | chest | dart:core       | 
+-3x | chest | dart:math       | `MutableRectangle`, `Rectangle`, `Point`
+-4x | chest | dart:typed_data | 

@@ -12,9 +12,11 @@ final counter = Chest<int>('counter', ifNew: () => 0);
 ```
 
 ?> Please don't name your chest variable `chest`. What name would you give it if it was just a normal variable? Use that one.
-If you really need the distinction between the chest and the value, use `chest` as a suffix, e.g. `counterChest`.
+If you need the distinction between the chest and the value, use `chest` as a suffix, e.g. `counterChest`.
 
-?> It's okay to declare your chests globally. Chests come with built-in functionality for listening to changes and it's impossible for multiple users of a chest to get references to the same interior mutable Dart object.
+?> It's okay to declare your chests globally.
+Chests come with built-in functionality for listening to changes and it's impossible for multiple users of a chest to get references to the same interior mutable Dart object, so the conflict potential for global mutable state is very limited.
+Declaring chests globally also is more true to their nature as wrappers around files – files are also globally accessible in your program.
 
 ## Open a chest
 
@@ -23,7 +25,6 @@ Before you can use a chest, you need to open it.
 ```dart
 await counter.open();
 ```
-
 
 ## Access the value of a chest
 
@@ -47,20 +48,20 @@ The change is written to disk as soon as possible.
 
 Actually, the `.value` getter and setter are defined on the `Reference` type.
 
-A `Reference` is a wrapper around an object. Similar to a `Future`, it doesn't contain the value directly (because the Dart object doesn't exist yet).
+A `Reference` is a wrapper around an object. Similar to a `Future`, it doesn't contain the value directly (because the Dart object is not created yet).
 Instead, it "promises" to you that you can get and set the value synchronously.
 
 Each `Chest` is a `Reference` to its object – for example, the `counter` from above is a `Reference<int>`.
-References to more complex objects usually have extension methods – for example, a `Reference<Fruit>` might have a `.color` getter that returns a `Reference<Color>`.
+References to more complex objects usually have extension methods – for example, a `Reference<Fruit>` might have a `color` getter that returns a `Reference<Color>`.
 
-Using these getters makes the navigation inside the chest feel pretty natural, although the objects don't actually exist in memory:
+These getters make the navigation inside the chest feel pretty natural, although the objects don't actually exist in memory:
 
 ```dart
 fruit.color.value = Colors.red; // No Fruit object gets created.
 ```
 
 Of course, you can define your own extension methods on `Reference`s to make your life easier.
-For example, the `Reference<bool>` has a `.toggle()` method:
+For example, the `Reference<bool>` has a `toggle()` method:
 
 ```dart
 settings.darkMode.toggle();
