@@ -26,17 +26,17 @@ These are some of the things planned before 1.0.0 release:
 - [x] Document the file format
 - [x] Set up website
 - [x] Write docs on how to get started
-- [ ] Support taper migration
+- [x] Support taper migration
 - [ ] Support transactions
 - [ ] Support storing references
-- [ ] Support lazy chests
+- [ ] Support lazy chests?
+- [ ] Code generation using tapegen
+  - [ ] Create tapers
 - [ ] Make errors more beautiful
   - [ ] Suggest tapers
 - [ ] Add cycle detection
   - [ ] during serialization
   - [ ] during deserialization
-- [ ] Code generation using tapegen
-  - [ ] Create tapers
 - [ ] Write tapers for various common types
   - [x] dart:core
   - [x] dart:math
@@ -60,7 +60,6 @@ These are some of the things planned before 1.0.0 release:
     - [ ] See chests' contents
     - [ ] See live updates of the content
     - [ ] Edit content
-    - [ ] Clear chests
   - [ ] Performance
     - [ ] Startup
     - [ ] Decoding statistics
