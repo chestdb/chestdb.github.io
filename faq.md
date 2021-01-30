@@ -27,6 +27,8 @@ These are some of the things planned before 1.0.0 release:
 - [x] Set up website
 - [x] Write docs on how to get started
 - [x] Support taper migration
+- [x] Add Flutter package
+- [ ] Make encoding more efficient
 - [ ] Support transactions
 - [ ] Support storing references
 - [ ] Support lazy chests?
