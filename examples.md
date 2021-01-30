@@ -34,17 +34,19 @@ An app that lets you choose between dark and light mode.
 
 <div class="example mdc-card">
 
-<h2>Tristate dark mode</h2>
+<h2>Favorite animals</h2>
 
-An app that lets you choose between dark, light, and system default mode.
+An app that lets you heart animals that you like.
+
+[<button class="mdc-button mdc-button--raised"><span class="mdc-button__label">Read tutorial</span></button>](examples/favorite-animals.md)
 
 </div>
 
 <div class="example mdc-card">
 
-<h2>Favorite animals</h2>
+<h2>Tristate dark mode</h2>
 
-An app that lets you star animals that you like.
+An app that lets you choose between dark, light, and system default mode.
 
 </div>
 
