@@ -153,5 +153,6 @@ We implemented an app with two pages that can act on the same data and it was *e
 Hearting the `bubblefish` in the huge list will automatically cause it to show in the second one and unhearting it there will also remove the heart from the first one.
 That's how easy state management can be with chest.
 
-![all](../assets/favorite-animals-all.jpg)
-![favorites](../assets/favorite-animals-favorites.jpg)
+all | favorites
+---|---
+![all](../assets/favorite-animals-all.jpg) | ![favorites](../assets/favorite-animals-favorites.jpg)
