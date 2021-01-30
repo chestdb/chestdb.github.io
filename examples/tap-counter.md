@@ -1,25 +1,26 @@
 # Tap Counter
 
 In this tutorial, we'll create the typical Flutter example, but persisting the counter value.
-As with the normal counter, we'll use a `Chest<int>` to store the counter.
 
 First, create a new project.
-In the `pubspec.yaml` file, add `chest` and `chest_flutter` as dependencies:
+In the `pubspec.yaml` file, add `chest_flutter` as a dependency:
 
 ```yaml
 dependencies:
-  chest: any
   chest_flutter: any
 ```
 
-Add the following global variable:
+As with the normal counter, we'll use a `Chest<int>` to store the counter.
+If the app is opened for the first time, we'll set the value to `0`.
+To do that, you can add the following global variable:
 
 ```dart
 final counter = Chest('counter', ifNew: () => 0);
 ```
 
 To use Chest with Flutter, call `initializeChest` in the `main` method.
-Also, open the chest to be able to use it. Also, register the `tapers.forDartCore` so that you can save and load `int`s:
+Also, register the `tapers.forDartCore` so that you can save and load `int`s.
+Then, open the chest to be able to use it. 
 
 ```dart
 void main() async {
@@ -32,7 +33,8 @@ void main() async {
 }
 ```
 
-The `TapCounterApp` looks as follows:
+Inside the app, you can use a `ReferenceBuilder` to rebuild part of the widget tree when the counter changes.
+You can simply do `counter.value++` to increase the counter's value.
 
 ```dart
 class TapCounterApp extends StatelessWidget {
@@ -70,9 +72,6 @@ class TapCounterApp extends StatelessWidget {
   }
 }
 ```
-
-Note that the `FloatingActionButton`'s `onPressed` simply increases the counter.
-The counter text itself is wrapped in a `ReferenceBuilder`, which rebuilds everytime the value of the counter reference changes.
 
 And that's it!
 If you close your app and restart it, the old value automatically appears.
