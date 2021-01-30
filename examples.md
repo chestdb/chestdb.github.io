@@ -18,6 +18,8 @@ A program that counts how many times it ran.
 
 The typical Flutter counter app, but persisted.
 
+[<button class="mdc-button mdc-button--raised"><span class="mdc-button__label">Read tutorial</span></button>](examples/tap-counter.md)
+
 </div>
 
 <div class="example mdc-card">
