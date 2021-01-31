@@ -1,6 +1,6 @@
 # Favorite Animals
 
-In this tutorial, we'll create an app that presents you with a huge list of animals and lets you set several animals as favorites.
+In this tutorial, we'll create an app that presents you with a huge list of animals and lets you mark several animals as favorites.
 
 First, create a new project.
 In the `pubspec.yaml` file, add `animal_names` and `chest_flutter` as dependencies:
@@ -22,8 +22,7 @@ final favorites = Chest<Set<String>>('favorites', ifNew: () => {});
 
 To use Chest with Flutter, call `initializeChest` in the `main` method.
 To be able to store `String`s in the chest, we need to register the `tapers.forDartCore`.
-Also, to be able to store a `Set<String>` in a type-safe way, we need to register a `taper.forSet<String>()`.
-Otherwise, the set would be stored as a `Set<Object?>`, losing generic type information.
+Also, for type-safe storage of a `Set<String>`, we need to register a `taper.forSet<String>()` – otherwise, the set would be stored as a `Set<Object?>`, losing generic type information.
 Tapers need to be registered under a type code.
 It's recommended to start at `0` and go upwards from there.
 Finally, we'll open the chest.
@@ -41,19 +40,8 @@ void main() async {
 ```
 
 Before building the `FavoriteAnimalsApp` itself, we'll focus on just a single animal item.
-Animals will be displayed in a `ListView`, so we'll use a `ListTile`.
-Our `AnimalTile` just takes an animal name to display and will show a heart button at the end that is already interactive.
-
-To achieve that, we can wrap the button in a `ReferenceBuilder`.
-As a reference, we can pass in `favorites[animal]`.
-You can't use brackets to index into normal sets, but when doing so on a `Reference<Set<String>>`, it returns a `Reference<void>` that can be watched and will notify you every time the value changes.
-So, only if the favorite status of that particular animal changes, our icon button will rebuild.
-
-The `Reference<Set<String>>` also has a `contains` method so we can check if our animal is included in the set without having to deserialize all favorites.
-We can use the `contains` method to display either a filled heart or a heart with only a border.
-
-Finally, `Reference<Set<String>>` has a `toggle` method that removes the given element if it's already in the set and adds it otherwise.
-We can make use of that in the `IconButton`'s `onPressed` callback.
+Animals will be displayed in a `ListView`, so we'll create an `AnimalTile` that uses a `ListTile` under the hood.
+Our `AnimalTile` just takes an animal name to display and will show an interactive heart button.
 
 ```dart
 class AnimalTile extends StatelessWidget {
@@ -83,8 +71,18 @@ class AnimalTile extends StatelessWidget {
 }
 ```
 
+Note that to achieve the interactivity, we simply wrap the button in a `ReferenceBuilder`, passing `favorites[animal]` as a reference.
+While you can't use brackets to index into normal sets, doing so on a `Reference<Set<String>>` returns a `Reference<void>` that can be watched for changes to the value.
+So, only if the favorite status of that particular animal changes, our heart button will rebuild.
+
+The `Reference<Set<String>>` also has a `contains` method so we can check if our animal is included in the set without having to deserialize all favorites.
+We use the `contains` method to display either a filled heart or a heart with only a border.
+
+Finally, `Reference<Set<String>>` has a `toggle` method that removes the given element if it's already in the set and adds it otherwise.
+We make use of that in the `IconButton`'s `onPressed` callback.
+
 Our main app screen will offer two tabs: One showing all animals and one only showing our favorites.
-The typical way of implementing tabs is to wrap the whole app in a `DefaultTabController` and then use the `TabBarView` as the body, so that's what we'll do:
+The simplest way of implementing tabs is to wrap the whole app in a `DefaultTabController` and then use the `TabBarView` as the body, so that's what we'll do:
 
 ```dart
 class FavoriteAnimalsApp extends StatelessWidget {
@@ -150,8 +148,9 @@ ReferenceBuilder(
 
 And that's it!
 We implemented an app with two pages that can act on the same data and it was *easy*.
-Hearting the `bubblefish` in the huge list will automatically cause it to show in the second one and unhearting it there will also remove the heart from the first one.
-That's how easy state management can be with chest.
+Hearting the bubblefish in the huge list will automatically cause it to show up in the second one and unhearting it there will also remove the heart from the first one.
+And everything is also persisted over app startups.
+That's how easy persistence can be with chest.
 
 all | favorites
 ---|---
