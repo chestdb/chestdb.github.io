@@ -17,3 +17,4 @@ type code | tapers package | type package | types
 -2x | chest | dart:core       | 
 -3x | chest | dart:math       | `MutableRectangle`, `Rectangle`, `Point`
 -4x | chest | dart:typed_data | 
+-5x | flutter_tapers | flutter | `Color`, `MaterialColor`, `ThemeMode`
